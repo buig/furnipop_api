@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from . import views
+
+from controller import colors
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/',views.index, name='indice'),
+    path('colors/', colors.index, name='colores' )
 ]
