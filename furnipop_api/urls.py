@@ -18,10 +18,14 @@ from django.urls import path
 
 from . import views
 
-from controller import colors
+from controller import colors,departamentos
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/',views.index, name='indice'),
-    path('colors/', colors.index, name='colores' )
+    path('colores', colors.getOrPostColor, name='colores' ),
+    path('color', colors.getPutDeleteColor, name='colores' ),
+    path('departamentos',departamentos.getOrPostDepartamento,name='departamentos'),
+    path('departamento',departamentos.getPutDeleteDepartamento,name='departamento'),
 ]
