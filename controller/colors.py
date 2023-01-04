@@ -1,17 +1,11 @@
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
+from django.http import HttpResponse
+from django.core import serializers
 
 from furnipop_api.models import Color
 
 
 def index(request):
-    q1 = Color.objects.all().values()
+    q1 = Color.objects.all()
     
-    data = dict()
-
-    for value in q1:
-        id = value['id']
-        word = value['nombre']
-        data[id] = word
-
-    return JsonResponse(data, safe=False)
+    data = serializers.serialize('json', q1, fields=('nombre'))
+    return HttpResponse(data)
