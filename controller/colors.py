@@ -32,20 +32,20 @@ def getPutDeleteColor(request):
     resStatus = None
     pk = request.query_params['pk']
     try:
-        departamento = Color.objects.get(pk=pk)
+        color = Color.objects.get(pk=pk)
     except Color.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
             return Response(status=resStatus)
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = ColorSerializer(departamento)
+        serializer = ColorSerializer(color)
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT
-            departamento.delete()
+            color.delete()
     
     if request.method == 'PUT':
-        serializer = ColorSerializer(departamento, data=request.data)
+        serializer = ColorSerializer(color, data=request.data)
         if serializer.is_valid():
             serializer.save()
         else:
