@@ -18,7 +18,9 @@ from django.urls import path
 
 from . import views
 
-from controller import colors,departamentos
+from controller import colors
+from controller import departamentos
+from controller import contenedores
 
 
 urlpatterns = [
@@ -28,4 +30,6 @@ urlpatterns = [
     path('color', colors.getPutDeleteColor, name='colores' ),
     path('departamentos',departamentos.getOrPostDepartamento,name='departamentos'),
     path('departamento',departamentos.getPutDeleteDepartamento,name='departamento'),
+    path('contenedores',contenedores.getOrPostContenedor,name='contenedores'),
+    path('contenedor',contenedores.getPutDeleteContenedor,name='contenedor'),
 ]
