@@ -70,7 +70,7 @@ class Item(models.Model):
     precio = models.FloatField()
     contenedor = models.ForeignKey(Contenedor, models.DO_NOTHING)
     color = models.ForeignKey(Color, models.DO_NOTHING, blank=True, null=True)
-    material = models.ForeignKey('Material', models.DO_NOTHING, blank=True, null=True)
+    material = models.ForeignKey(Material, models.DO_NOTHING, blank=True, null=True)
     estado_item = models.ForeignKey(EstadoItem, models.DO_NOTHING, blank=True, null=True)
     empleado = models.ForeignKey(Empleado, models.DO_NOTHING, blank=True, null=True)
 
