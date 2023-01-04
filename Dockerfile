@@ -2,6 +2,7 @@ FROM python:3.9
 ENV PYTHONUNBUFFERED 1
 
 RUN pip3 install mysql-connector mysqlclient
+RUN pip install djangorestframework
 
 RUN mkdir /code
 WORKDIR /code
