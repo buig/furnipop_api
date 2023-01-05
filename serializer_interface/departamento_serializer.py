@@ -2,7 +2,8 @@ from rest_framework import serializers
 
 from furnipop_api.models import Departamento
 
-class DepartamentoSerializer(serializers.Serializer):
+class DepartamentoSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     nombre = serializers.CharField(max_length=45)
     codigo = serializers.CharField(max_length=45)
 
@@ -18,3 +19,8 @@ class DepartamentoSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+
+    class Meta:
+        model = Departamento
+        #fields = '__all__'
+        fields = ['id','nombre','codigo']

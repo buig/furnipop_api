@@ -48,7 +48,7 @@ class Departamento(models.Model):
 
 class Empleado(models.Model):
     dni = models.CharField(unique=True, max_length=12)
-    email = models.CharField(unique=True, max_length=100)
+    email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=100)
     nss = models.CharField(unique=True, max_length=45)
     nombre = models.CharField(max_length=100)

@@ -24,6 +24,7 @@ from controller import contenedores
 from controller import imagenes
 from controller import materiales
 from controller import estados_items
+from controller import empleados
 
 
 urlpatterns = [
@@ -41,4 +42,8 @@ urlpatterns = [
     path('material',materiales.getPutDeleteMaterial,name='material'),
     path('estados-items',estados_items.getOrPostEstadoItem,name='materiales'),
     path('estado-item',estados_items.getPutDeleteEstadoItem,name='material'),
+    path('empleados',empleados.getOrPostEmpleado,name='empleados'),
+    path('empleado',empleados.getPutDeleteEmpleado,name='empleado'),
+    path('departamento/empleados',empleados.getEmpleadosFromDepartamento,name="departamento empleados"),
+    path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado")
 ]
