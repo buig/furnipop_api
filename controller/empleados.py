@@ -2,10 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from django.http import QueryDict, JsonResponse
 from furnipop_api.models import Empleado, Departamento
 from serializer_interface.empleado_serializer import EmpleadoSerializer
-from serializer_interface.departamento_serializer import DepartamentoSerializer
 from serializer_interface.empleado_dept_serializer import EmpleadoDeptSerializer
 
 @api_view(['GET','POST'])

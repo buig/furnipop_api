@@ -157,13 +157,14 @@ class Tarjeta(models.Model):
 class Lote(models.Model):
     nombre = models.CharField(max_length=45)
     empleado = models.ForeignKey(Empleado, models.DO_NOTHING)
+    items = models.ManyToManyField(Item, through='ItemsLotes')
 
     class Meta:
         app_label = 'furnipop'
         db_table = 'lote'
 
 class ItemsLotes(models.Model):
-    lote = models.OneToOneField('Lote', models.DO_NOTHING, primary_key=True)
+    lote = models.OneToOneField(Lote, models.DO_NOTHING)
     item = models.ForeignKey(Item, models.DO_NOTHING)
     cantidad = models.IntegerField()
 

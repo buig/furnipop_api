@@ -25,6 +25,7 @@ from controller import imagenes
 from controller import materiales
 from controller import estados_items
 from controller import empleados
+from controller import lotes
 
 
 urlpatterns = [
@@ -45,5 +46,7 @@ urlpatterns = [
     path('empleados',empleados.getOrPostEmpleado,name='empleados'),
     path('empleado',empleados.getPutDeleteEmpleado,name='empleado'),
     path('departamento/empleados',empleados.getEmpleadosFromDepartamento,name="departamento empleados"),
-    path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado")
+    path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado"),
+    path('lotes',lotes.getOrPostLote,name='lotes'),
+    path('lote',lotes.getPutDeleteLote,name='lote'),
 ]
