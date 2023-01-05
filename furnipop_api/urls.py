@@ -23,6 +23,7 @@ from controller import departamentos
 from controller import contenedores
 from controller import imagenes
 from controller import materiales
+from controller import estados_items
 
 
 urlpatterns = [
@@ -38,4 +39,6 @@ urlpatterns = [
     path('imagen',imagenes.getPutDeleteImagen,name='imagen'),
     path('materiales',materiales.getOrPostMaterial,name='materiales'),
     path('material',materiales.getPutDeleteMaterial,name='material'),
+    path('estados-items',estados_items.getOrPostEstadoItem,name='materiales'),
+    path('estado-item',estados_items.getPutDeleteEstadoItem,name='material'),
 ]
