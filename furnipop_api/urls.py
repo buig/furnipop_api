@@ -22,6 +22,7 @@ from controller import colors
 from controller import departamentos
 from controller import contenedores
 from controller import imagenes
+from controller import materiales
 
 
 urlpatterns = [
@@ -35,4 +36,6 @@ urlpatterns = [
     path('contenedor',contenedores.getPutDeleteContenedor,name='contenedor'),
     path('imagenes',imagenes.getOrPostImagen,name='imagenes'),
     path('imagen',imagenes.getPutDeleteImagen,name='imagen'),
+    path('materiales',materiales.getOrPostMaterial,name='materiales'),
+    path('material',materiales.getPutDeleteMaterial,name='material'),
 ]
