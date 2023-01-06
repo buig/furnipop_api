@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from furnipop_api.models import Item
+from furnipop_api.models import Item, Lote, ItemsLotes
 from serializer_interface.item_serializer import ItemSerializer
 
 @api_view(['GET','POST'])
@@ -52,4 +52,22 @@ def getPutDeleteItem(request):
             resStatus = status.HTTP_400_BAD_REQUEST
             return Response(serializer.errors,status=resStatus)
 
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET'])
+def getItemsByLote(request):
+    serializer = None
+    resStatus = None
+    pk = request.query_params['pk']
+    try:
+        get_lote = Lote.objects.get(pk=pk)
+        itemsLotes = ItemsLotes.objects.filter(lote=get_lote)
+        itemList = list()
+        for iLote in itemsLotes:
+            itemList.append(iLote.item)
+        serializer = ItemSerializer(itemList, many=True)
+        resStatus = status.HTTP_200_OK
+    except Lote.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
     return Response(serializer.data, status=resStatus)

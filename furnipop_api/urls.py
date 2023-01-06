@@ -51,6 +51,7 @@ urlpatterns = [
     path('lotes',lotes.getOrPostLote,name='lotes'),
     path('lote',lotes.getPutDeleteLote,name='lote'),
     #AQUI VAN LAS FALTANTES DE LOTES
+    path('lote/items',items.getItemsByLote,name='items in lote'),
     path('items',items.getOrPostItem,name='items'),
     path('item',items.getPutDeleteItem,name='item'),
 ]

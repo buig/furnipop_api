@@ -164,8 +164,8 @@ class Lote(models.Model):
         db_table = 'lote'
 
 class ItemsLotes(models.Model):
-    lote = models.OneToOneField(Lote, models.DO_NOTHING)
-    item = models.ForeignKey(Item, models.DO_NOTHING)
+    lote = models.ForeignKey(Lote, on_delete=models.DO_NOTHING)
+    item = models.ForeignKey(Item, on_delete=models.DO_NOTHING)
     cantidad = models.IntegerField()
 
     class Meta:
