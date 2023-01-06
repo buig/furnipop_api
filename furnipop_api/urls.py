@@ -24,6 +24,9 @@ from controller import contenedores
 from controller import imagenes
 from controller import materiales
 from controller import estados_items
+from controller import empleados
+from controller import lotes
+from controller import items
 
 
 urlpatterns = [
@@ -41,4 +44,15 @@ urlpatterns = [
     path('material',materiales.getPutDeleteMaterial,name='material'),
     path('estados-items',estados_items.getOrPostEstadoItem,name='materiales'),
     path('estado-item',estados_items.getPutDeleteEstadoItem,name='material'),
+    path('empleados',empleados.getOrPostEmpleado,name='empleados'),
+    path('empleado',empleados.getPutDeleteEmpleado,name='empleado'),
+    path('departamento/empleados',empleados.getEmpleadosFromDepartamento,name="departamento empleados"),
+    path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado"),
+    path('lotes',lotes.getOrPostLote,name='lotes'),
+    path('lote',lotes.getPutDeleteLote,name='lote'),
+    #AQUI VAN LAS FALTANTES DE LOTES
+    path('lote/items',items.getItemsByLote,name='items in lote'),
+    path('lote/item',items.getPutDeleteItemFromLote,name='item in lote'),
+    path('items',items.getOrPostItem,name='items'),
+    path('item',items.getPutDeleteItem,name='item'),
 ]
