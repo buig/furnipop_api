@@ -13,28 +13,28 @@ class Contenedor(models.Model):
     ubicacion = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'contenedor'
 
 class Color(models.Model):
     nombre = models.CharField(max_length=45)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'color'
 
 class Material(models.Model):
     nombre = models.CharField(max_length=45)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'material'
 
 class EstadoItem(models.Model):
     nombre = models.CharField(max_length=45)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'estado_item'
 
 
@@ -43,7 +43,7 @@ class Departamento(models.Model):
     codigo = models.CharField(max_length=45)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'departamento'
 
 class Empleado(models.Model):
@@ -56,7 +56,7 @@ class Empleado(models.Model):
     departamento = models.ForeignKey(Departamento, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'empleado'
 
 class Item(models.Model):
@@ -75,7 +75,7 @@ class Item(models.Model):
     empleado = models.ForeignKey(Empleado, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'item'
 
 class Cliente(models.Model):
@@ -87,14 +87,14 @@ class Cliente(models.Model):
     password = models.CharField(max_length=100)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'cliente'
 
 class EstadoPedido(models.Model):
     nombre = models.CharField(max_length=45)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'estado_pedido'
 
 class Direccion(models.Model):
@@ -106,14 +106,14 @@ class Direccion(models.Model):
     cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'direccion'
 
 class Camion(models.Model):
     matricula = models.CharField(unique=True, max_length=10)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'camion'
 
 class MetodoPago(models.Model):
@@ -121,7 +121,7 @@ class MetodoPago(models.Model):
     cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'metodo_pago'
 
 class Pedido(models.Model):
@@ -133,7 +133,7 @@ class Pedido(models.Model):
     metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'pedido'
 
 class Paypal(models.Model):
@@ -141,7 +141,7 @@ class Paypal(models.Model):
     metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'paypal'
 
 class Tarjeta(models.Model):
@@ -151,7 +151,7 @@ class Tarjeta(models.Model):
     metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'tarjeta'
 
 class Lote(models.Model):
@@ -160,7 +160,7 @@ class Lote(models.Model):
     items = models.ManyToManyField(Item, through='ItemsLotes')
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'lote'
 
 class ItemsLotes(models.Model):
@@ -169,9 +169,8 @@ class ItemsLotes(models.Model):
     cantidad = models.IntegerField()
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'items_lotes'
-        unique_together = (('lote', 'item'),)
 
 class ItemsPedidos(models.Model):
     pedido = models.OneToOneField('Pedido', models.DO_NOTHING, primary_key=True)
@@ -179,7 +178,7 @@ class ItemsPedidos(models.Model):
     cantidad = models.IntegerField()
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'items_pedidos'
         unique_together = (('pedido', 'item'),)
 
@@ -188,7 +187,7 @@ class LotesPedidos(models.Model):
     pedido = models.ForeignKey('Pedido', models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'lotes_pedidos'
         unique_together = (('lote', 'pedido'),)
 
@@ -196,7 +195,7 @@ class Imagen(models.Model):
     src = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'imagen'
 
 class ImagenesItems(models.Model):
@@ -204,7 +203,7 @@ class ImagenesItems(models.Model):
     imagen = models.ForeignKey(Imagen, models.DO_NOTHING)
 
     class Meta:
-        app_label = 'furnipop'
+        app_label = 'furnipop_api'
         db_table = 'imagenes_items'
         unique_together = (('item', 'imagen'),)
 
