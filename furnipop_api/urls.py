@@ -26,6 +26,7 @@ from controller import materiales
 from controller import estados_items
 from controller import empleados
 from controller import lotes
+from controller import items
 
 
 urlpatterns = [
@@ -49,4 +50,7 @@ urlpatterns = [
     path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado"),
     path('lotes',lotes.getOrPostLote,name='lotes'),
     path('lote',lotes.getPutDeleteLote,name='lote'),
+    #AQUI VAN LAS FALTANTES DE LOTES
+    path('items',items.getOrPostItem,name='items'),
+    path('item',items.getPutDeleteItem,name='item'),
 ]
