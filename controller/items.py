@@ -61,11 +61,8 @@ def getItemsByLote(request):
     pk = request.query_params['pk']
     try:
         get_lote = Lote.objects.get(pk=pk)
-        itemsLotes = ItemsLotes.objects.filter(lote=get_lote)
-        itemList = list()
-        for iLote in itemsLotes:
-            itemList.append(iLote.item)
-        serializer = ItemSerializer(itemList, many=True)
+        items = get_lote.items.all()
+        serializer = ItemSerializer(items, many=True)
         resStatus = status.HTTP_200_OK
     except Lote.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
