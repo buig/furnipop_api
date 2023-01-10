@@ -27,6 +27,14 @@ from controller import estados_items
 from controller import empleados
 from controller import lotes
 from controller import items
+from controller import pedidos
+from controller import clientes
+from controller import direcciones
+from controller import metodos_pago
+from controller import paypal
+from controller import tarjetas
+from controller import camiones
+from controller import estados_pedido
 
 
 urlpatterns = [
@@ -55,4 +63,24 @@ urlpatterns = [
     path('lote/item',items.getPutDeleteItemFromLote,name='item in lote'),
     path('items',items.getOrPostItem,name='items'),
     path('item',items.getPutDeleteItem,name='item'),
+    path('pedidos',pedidos.getOrPostPedido,name='pedidos'),
+    path('pedido',pedidos.getPutDeletePedido,name='pedido' ),
+    path('pedido/items',items.getItemsByPedido,name='items in pedido'),
+    path('pedido/item',items.getPutDeleteItemFromPedido,name='item in pedido' ),
+    path('pedido/lotes',lotes.getLotesByPedido,name='lotes in pedido'),
+    path('pedido/lote',lotes.getPutDeleteLoteFromPedido,name='lote in pedido' ),
+    path('clientes',clientes.getOrPostCliente,name='clientes'),
+    path('cliente',clientes.getPutDeleteCliente,name='cliente'),
+    path('direcciones',direcciones.getOrPostdireccion,name='direcciones'),
+    path('direccion',direcciones.getPutDeleteDireccion,name='direccion'),
+    path('metodos-pago',metodos_pago.getOrPostMetodosPago,name='metodo-pago'),
+    path('metodo-pago',metodos_pago.getPutDeleteMetodoPago,name='metodo-pago'),
+    path('paypals',paypal.getPaypal,name='paypals'),
+    path('paypal',paypal.getPutDeletePaypal,name='paypal'),
+    path('tarjeta',tarjetas.getTarjeta,name='tarjetas'),
+    path('tarjeta',tarjetas.getPutDeleteTarjeta,name='tarjeta'),
+    path('camiones',camiones.getOrPostCamion,name='camiones'),
+    path('camion',camiones.getPutDeleteCamion,name='camion'),
+    path('estados-pedido',estados_pedido.getOrPostEstadoPedido,name='estados-pedido'),
+    path('estado-pedido',estados_pedido.getPutDeleteEstadoPedido,name='estado-pedido')
 ]
