@@ -99,3 +99,49 @@ def getPutDeleteItemFromLote(request):
         return Response(status=resStatus)
 
     return Response(serializer.data, status=resStatus)
+
+@api_view(['GET'])
+def getItemsByPedido(request):
+    serializer = None
+    resStatus = None
+    pk = request.query_params['pk']
+    try:
+        get_pedido = Pedido.objects.get(pk=pk)
+        items = get_pedido.items.all()
+        serializer = ItemSerializer(items, many=True)
+        resStatus = status.HTTP_200_OK
+    except Pedido.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET','PUT','DELETE'])
+def getPutDeleteItemFromPedido(request):
+    serializer = None
+    resStatus = None
+    pedido_pk = request.query_params['pedido_pk']
+    item_pk = request.query_params['item_pk']
+    try:
+        pedido = Pedido.objects.get(pk=pedido_pk)
+        item = Item.objects.get(pk=item_pk)
+        if request.method == 'GET' or request.method == 'DELETE':
+            if pedido.items.contains(item):
+                resStatus = status.HTTP_200_OK
+                serializer = ItemSerializer(item)
+                if request.method == 'DELETE':
+                    pedido.items.remove(item)
+            else:
+                raise Item.DoesNotExist
+        if request.method == 'PUT':
+            if not pedido.items.contains(item):
+                serializer = ItemSerializer(item)
+                cant = request.data.get('cantidad',1)
+                ItemsPedidos.objects.create(item = item, pedido = pedido, cantidad = cant)
+            else:
+                resStatus = status.HTTP_428_PRECONDITION_REQUIRED
+                return Response(status=resStatus)
+    except Pedido.DoesNotExist or Item.DoesNotExist:
+        resStatus = status.HTTP_404_NOT_FOUND
+        return Response(status=resStatus)
+
+    return Response(serializer.data, status=resStatus)
