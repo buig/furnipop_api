@@ -53,3 +53,49 @@ def getPutDeleteLote(request):
             return Response(serializer.errors,status=resStatus)
 
     return Response(serializer.data, status=resStatus)
+
+@api_view(['GET'])
+def getLotesByPedido(request):
+    serializer = None
+    resStatus = None
+    pk = request.query_params['pk']
+    try:
+        get_pedido = Pedido.objects.get(pk=pk)
+        lotes = get_pedido.lotes.all()
+        serializer = LoteSerializer(lotes, many=True)
+        resStatus = status.HTTP_200_OK
+    except Pedido.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET','PUT','DELETE'])
+def getPutDeleteLoteFromPedido(request):
+    serializer = None
+    resStatus = None
+    pedido_pk = request.query_params['pedido_pk']
+    lote_pk = request.query_params['lote_pk']
+    try:
+        pedido = Pedido.objects.get(pk=pedido_pk)
+        lote = Lote.objects.get(pk=lote_pk)
+        if request.method == 'GET' or request.method == 'DELETE':
+            if pedido.lotes.contains(lote):
+                resStatus = status.HTTP_200_OK
+                serializer = LoteSerializer(lote)
+                if request.method == 'DELETE':
+                    pedido.lotes.remove(lote)
+            else:
+                raise Lote.DoesNotExist
+        if request.method == 'PUT':
+            if not pedido.lotes.contains(lote):
+                serializer = LoteSerializer(lote)
+                cant = request.data.get('cantidad',1)
+                LotesPedidos.objects.create(lote = lote, pedido = pedido, cantidad = cant)
+            else:
+                resStatus = status.HTTP_428_PRECONDITION_REQUIRED
+                return Response(status=resStatus)
+    except Pedido.DoesNotExist or Lote.DoesNotExist:
+        resStatus = status.HTTP_404_NOT_FOUND
+        return Response(status=resStatus)
+
+    return Response(serializer.data, status=resStatus)
