@@ -83,7 +83,7 @@ class Cliente(models.Model):
     apellidos = models.CharField(max_length=45)
     dni = models.CharField(unique=True, max_length=10)
     fecha_nacimiento = models.DateField()
-    email = models.CharField(unique=True, max_length=100)
+    email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=100)
 
     class Meta:
@@ -117,7 +117,6 @@ class Camion(models.Model):
         db_table = 'camion'
 
 class MetodoPago(models.Model):
-    nombre = models.CharField(max_length=45)
     cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
 
     class Meta:
@@ -137,7 +136,7 @@ class Pedido(models.Model):
         db_table = 'pedido'
 
 class Paypal(models.Model):
-    email = models.CharField(unique=True, max_length=45)
+    email = models.EmailField(unique=True, max_length=45)
     metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
 
     class Meta:
@@ -173,7 +172,7 @@ class ItemsLotes(models.Model):
         db_table = 'items_lotes'
 
 class ItemsPedidos(models.Model):
-    pedido = models.OneToOneField('Pedido', models.DO_NOTHING, primary_key=True)
+    pedido = models.OneToOneField(Pedido, models.DO_NOTHING, primary_key=True)
     item = models.ForeignKey(Item, models.DO_NOTHING)
     cantidad = models.IntegerField()
 
@@ -199,7 +198,7 @@ class Imagen(models.Model):
         db_table = 'imagen'
 
 class ImagenesItems(models.Model):
-    item = models.OneToOneField('Item', models.DO_NOTHING, primary_key=True)
+    item = models.OneToOneField(Item, models.DO_NOTHING, primary_key=True)
     imagen = models.ForeignKey(Imagen, models.DO_NOTHING)
 
     class Meta:
