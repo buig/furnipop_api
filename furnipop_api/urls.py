@@ -58,7 +58,6 @@ urlpatterns = [
     path('departamento/empleado',empleados.putEmpleadoInDepartamento,name="departamento empleado"),
     path('lotes',lotes.getOrPostLote,name='lotes'),
     path('lote',lotes.getPutDeleteLote,name='lote'),
-    #AQUI VAN LAS FALTANTES DE LOTES
     path('lote/items',items.getItemsByLote,name='items in lote'),
     path('lote/item',items.getPutDeleteItemFromLote,name='item in lote'),
     path('items',items.getOrPostItem,name='items'),
@@ -77,7 +76,7 @@ urlpatterns = [
     path('metodo-pago',metodos_pago.getPutDeleteMetodoPago,name='metodo-pago'),
     path('paypals',paypal.getPaypal,name='paypals'),
     path('paypal',paypal.getPutDeletePaypal,name='paypal'),
-    path('tarjeta',tarjetas.getTarjeta,name='tarjetas'),
+    path('tarjetas',tarjetas.getTarjeta,name='tarjetas'),
     path('tarjeta',tarjetas.getPutDeleteTarjeta,name='tarjeta'),
     path('camiones',camiones.getOrPostCamion,name='camiones'),
     path('camion',camiones.getPutDeleteCamion,name='camion'),
