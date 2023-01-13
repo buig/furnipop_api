@@ -5,15 +5,19 @@ from rest_framework.decorators import api_view
 from furnipop_api.models import Paypal
 from serializer_interface.paypal_serializer import PaypalSerializer
 
-@api_view(['GET'])
+@api_view(['POST'])
 def getPaypal(request):
     serializer = None
     resStatus = None
-    if(request.method =='GET'):
-        q1 = Paypal.objects.all()
-        
-        serializer = PaypalSerializer(q1, many=True)
-        resStatus = status.HTTP_200_OK
+    if request.method=='POST':
+
+        serializer = PaypalSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            resStatus = status.HTTP_201_CREATED
+        else:
+            resStatus = status.HTTP_400_BAD_REQUEST
+            return Response(status = resStatus)
 
     return Response(serializer.data, status= resStatus)
 
