@@ -5,15 +5,19 @@ from rest_framework.decorators import api_view
 from furnipop_api.models import Tarjeta
 from serializer_interface.tarjeta_serializer import TarjetaSerializer
 
-@api_view(['GET'])
+@api_view(['POST'])
 def getTarjeta(request):
     serializer = None
     resStatus = None
-    if(request.method =='GET'):
-        q1 = Tarjeta.objects.all()
-        
-        serializer = TarjetaSerializer(q1, many=True)
-        resStatus = status.HTTP_200_OK
+    if request.method=='POST':
+
+        serializer = TarjetaSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            resStatus = status.HTTP_201_CREATED
+        else:
+            resStatus = status.HTTP_400_BAD_REQUEST
+            return Response(status = resStatus)
 
     return Response(serializer.data, status= resStatus)
 
