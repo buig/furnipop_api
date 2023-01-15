@@ -183,7 +183,7 @@ class ItemsPedidos(models.Model):
 
 class LotesPedidos(models.Model):
     lote = models.OneToOneField(Lote, models.DO_NOTHING, primary_key=True)
-    pedido = models.ForeignKey('Pedido', models.DO_NOTHING)
+    pedido = models.ForeignKey(Pedido, models.DO_NOTHING)
 
     class Meta:
         app_label = 'furnipop_api'
