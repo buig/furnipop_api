@@ -6,14 +6,8 @@ from .empleado_dept_serializer import EmpleadoDeptSerializer
 
 class LoteSerializer(serializers.ModelSerializer):
 
-    empleado = EmpleadoDeptSerializer()
+    id = serializers.IntegerField(required=False)
 
-    def create(self, validated_data):
-        empleado_data = validated_data.pop('empleado')
-        one_entry = Empleado.objects.get(pk=empleado_data['id'])
-        lote = Lote.objects.create(empleado = one_entry,**validated_data)
-
-        return lote
 
     def update(self, instance, validated_data):
 

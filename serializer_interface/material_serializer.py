@@ -2,7 +2,8 @@ from rest_framework import serializers
 
 from furnipop_api.models import Material
 
-class MaterialSerializer(serializers.Serializer):
+class MaterialSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     nombre = serializers.CharField(max_length=45)
 
     def create(self, validated_data):
@@ -16,3 +17,7 @@ class MaterialSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+
+    class Meta:
+        model = Material
+        fields = '__all__'
