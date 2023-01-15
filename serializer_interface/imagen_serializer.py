@@ -2,12 +2,10 @@ from rest_framework import serializers
 
 from furnipop_api.models import Imagen
 
-class ImagenSerializer(serializers.Serializer):
+class ImagenSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     src = serializers.CharField(max_length=45, allow_blank=True, allow_null=True, required=False)
 
-    def create(self, validated_data):
-
-        return Imagen.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
 
@@ -16,3 +14,7 @@ class ImagenSerializer(serializers.Serializer):
         instance.save()
 
         return instance
+
+    class Meta:
+        model = Imagen
+        fields = '__all__'
