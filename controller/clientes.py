@@ -5,6 +5,25 @@ from rest_framework.decorators import api_view
 from furnipop_api.models import Cliente
 from serializer_interface.cliente_serializer import ClienteSerializer
 
+@api_view(['POST'])
+def validateCliente(request):
+    serializer = None
+    resStatus = None
+    data = request.data
+    email = data['email']
+    password = data['password']
+    try:
+        cliente = Cliente.objects.get(email=email, password = password)
+    except Cliente.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
+
+    if (request.method == 'POST'):
+        serializer = ClienteSerializer(cliente)
+        resStatus = status.HTTP_200_OK
+    
+    return Response(serializer.data, status=resStatus)
+
 @api_view(['GET','POST'])
 def getOrPostCliente(request):
     serializer = None
