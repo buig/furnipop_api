@@ -81,5 +81,7 @@ urlpatterns = [
     path('camiones',camiones.getOrPostCamion,name='camiones'),
     path('camion',camiones.getPutDeleteCamion,name='camion'),
     path('estados-pedido',estados_pedido.getOrPostEstadoPedido,name='estados-pedido'),
-    path('estado-pedido',estados_pedido.getPutDeleteEstadoPedido,name='estado-pedido')
+    path('estado-pedido',estados_pedido.getPutDeleteEstadoPedido,name='estado-pedido'),
+    path('login-empleado',empleados.validateEmpleado,name='login-empleado'),
+    path('login-cliente',clientes.validateCliente,name='login-cliente')
 ]
