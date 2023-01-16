@@ -6,6 +6,25 @@ from furnipop_api.models import Empleado, Departamento
 from serializer_interface.empleado_serializer import EmpleadoSerializer
 from serializer_interface.empleado_dept_serializer import EmpleadoDeptSerializer
 
+@api_view(['POST'])
+def validateEmpleado(request):
+    serializer = None
+    resStatus = None
+    data = request.data
+    email = data['email']
+    password = data['password']
+    try:
+        empleado = Empleado.objects.get(email=email, password = password)
+    except Empleado.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
+
+    if (request.method == 'POST'):
+        serializer = EmpleadoSerializer(empleado)
+        resStatus = status.HTTP_200_OK
+    
+    return Response(serializer.data, status=resStatus)
+
 @api_view(['GET','POST'])
 def getOrPostEmpleado(request):
     serializer = None
