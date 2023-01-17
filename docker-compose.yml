@@ -4,11 +4,11 @@ services:
   web:
     build: .
     container_name: furnipop_api
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:80
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8000:80"
     networks:
       - lasenia-shared
 
