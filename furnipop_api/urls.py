@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf.urls.static import static
+from django.conf import settings
+#from settings import MEDIA_URL,MEDIA_ROOT
 from . import views
 
 from controller import colors
@@ -84,4 +86,4 @@ urlpatterns = [
     path('estado-pedido',estados_pedido.getPutDeleteEstadoPedido,name='estado-pedido'),
     path('login-empleado',empleados.validateEmpleado,name='login-empleado'),
     path('login-cliente',clientes.validateCliente,name='login-cliente')
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

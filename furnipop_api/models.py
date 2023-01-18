@@ -189,9 +189,11 @@ class LotesPedidos(models.Model):
         app_label = 'furnipop_api'
         db_table = 'lotes_pedidos'
         unique_together = (('lote', 'pedido'),)
+def upload_to(instance, filename):
+    return '{filename}'.format(filename=filename)
 
 class Imagen(models.Model):
-    src = models.CharField(max_length=45, blank=True, null=True)
+    src = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
     class Meta:
         app_label = 'furnipop_api'
