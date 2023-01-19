@@ -83,5 +83,6 @@ urlpatterns = [
     path('estados-pedido',estados_pedido.getOrPostEstadoPedido,name='estados-pedido'),
     path('estado-pedido',estados_pedido.getPutDeleteEstadoPedido,name='estado-pedido'),
     path('login-empleado',empleados.validateEmpleado,name='login-empleado'),
-    path('login-cliente',clientes.validateCliente,name='login-cliente')
+    path('login-cliente',clientes.validateCliente,name='login-cliente'),
+    path('api/login',login.login, name='api-login')
 ]
