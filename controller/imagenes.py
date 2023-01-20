@@ -15,11 +15,11 @@ def getOrPostImagen(request):
     if(request.method =='GET'):
         q1 = Imagen.objects.all()
         
-        serializer = ImagenSerializer(q1, many=True)
+        serializer = ImagenSerializer(q1, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     if request.method=='POST':
 
-        serializer = ImagenSerializer(data = request.data)
+        serializer = ImagenSerializer(data = request.data, context={'host':host})
         #file = request.data['src']
         #img = Imagen(src=file)
         #serializer = ImagenSerializer(img)
@@ -45,7 +45,7 @@ def getPutDeleteImagen(request):
             return Response(status=resStatus)
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = ImagenSerializer(imagen)
+        serializer = ImagenSerializer(imagen, context={'host':host})
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT
@@ -53,7 +53,7 @@ def getPutDeleteImagen(request):
             imagen.delete()
     
     if request.method == 'PUT':
-        serializer = ImagenSerializer(imagen, data=request.data)
+        serializer = ImagenSerializer(imagen, data=request.data, context={'host':host})
         remove_img_file(imagen)
         if serializer.is_valid():
             serializer.save()

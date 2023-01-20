@@ -8,7 +8,8 @@ class ImagenSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField()
 
     def get_url(self, instance : Imagen):
-        return ""+self.hostName+instance.src.url
+        hostName = self.context.get('host')
+        return ""+hostName+instance.src.url
 
     class Meta:
         model = Imagen
