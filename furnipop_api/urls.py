@@ -48,6 +48,7 @@ urlpatterns = [
     path('departamento',departamentos.getPutDeleteDepartamento,name='departamento'),
     path('contenedores',contenedores.getOrPostContenedor,name='contenedores'),
     path('contenedor',contenedores.getPutDeleteContenedor,name='contenedor'),
+    path('contenedor/items',items.getItemsByContenedor,name='contenedor items'),
     path('imagenes',imagenes.getOrPostImagen,name='imagenes'),
     path('imagen',imagenes.getPutDeleteImagen,name='imagen'),
     path('materiales',materiales.getOrPostMaterial,name='materiales'),

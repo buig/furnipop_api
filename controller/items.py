@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from furnipop_api.models import Item, Lote, ItemsLotes
+from furnipop_api.models import Item, Lote, ItemsLotes, Pedido, Contenedor, ItemsPedidos
 from serializer_interface.item_serializer import ItemSerializer
 
 @api_view(['GET','POST'])
@@ -144,4 +144,19 @@ def getPutDeleteItemFromPedido(request):
         resStatus = status.HTTP_404_NOT_FOUND
         return Response(status=resStatus)
 
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET'])
+def getItemsByContenedor(request):
+    serializer = None
+    resStatus = None
+    pk = request.query_params['pk']
+    try:
+        get_contenedor = Contenedor.objects.get(pk=pk)
+        items = Item.objects.filter(contenedor=get_contenedor)
+        serializer = ItemSerializer(items, many=True)
+        resStatus = status.HTTP_200_OK
+    except Pedido.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
     return Response(serializer.data, status=resStatus)
