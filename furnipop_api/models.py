@@ -6,6 +6,8 @@
 #   * Remove `` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from pathlib import Path
+from typing import Any, Tuple, Dict
 
 class Contenedor(models.Model):
     referencia = models.CharField(max_length=45)
@@ -194,17 +196,21 @@ def upload_to(instance, filename):
 
 class Imagen(models.Model):
     src = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+
+    def remove_img_file(imagen):
+        parent_path = Path(__file__).parent.parent
+        imgFile = imagen.src.url
+        if imgFile[0] == '/':
+            imgFile = imgFile[1:]
+        file = parent_path.joinpath(imgFile)
+        file.unlink()
+
+    def delete(self):
+        self.remove_img_file()
+        return super(Imagen,self).delete()
 
     class Meta:
         app_label = 'furnipop_api'
         db_table = 'imagen'
-
-class ImagenesItems(models.Model):
-    item = models.OneToOneField(Item, models.DO_NOTHING, primary_key=True)
-    imagen = models.ForeignKey(Imagen, models.DO_NOTHING)
-
-    class Meta:
-        app_label = 'furnipop_api'
-        db_table = 'imagenes_items'
-        unique_together = (('item', 'imagen'),)
 

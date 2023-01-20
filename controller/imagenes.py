@@ -49,7 +49,7 @@ def getPutDeleteImagen(request):
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT
-            remove_img_file(imagen)
+            #remove_img_file(imagen)
             imagen.delete()
     
     if request.method == 'PUT':
