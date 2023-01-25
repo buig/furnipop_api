@@ -15,6 +15,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_ROOT = BASE_DIR.joinpath('images')
+MEDIA_URL = '/images/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -25,7 +28,7 @@ SECRET_KEY = 'django-insecure-h#ho(#d7xde#%cw@qic58l)%4#@9jmyz+!@3pwa%7mo=2j3-(2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['apicei14.ieslasenia.org']
+ALLOWED_HOSTS = ['apicei14.ieslasenia.org', '127.0.0.1']
 
 
 # Application definition
