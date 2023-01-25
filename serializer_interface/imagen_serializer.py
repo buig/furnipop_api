@@ -9,7 +9,7 @@ class ImagenSerializer(serializers.ModelSerializer):
 
     def get_url(self, instance : Imagen):
         hostName = self.context.get('host')
-        return ""+hostName+instance.src.url
+        return "http://"+hostName+instance.src.url
 
     class Meta:
         model = Imagen
