@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'furnipop',
         'USER': 'root',
         'PASSWORD': 'dbrootpass',
-        'HOST': 'furnipop_dbms',
+        'HOST': 'add-dbms',
         'PORT': '3306',
     },
 }
