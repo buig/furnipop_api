@@ -76,6 +76,9 @@ class Item(models.Model):
     estado_item = models.ForeignKey(EstadoItem, models.DO_NOTHING, blank=True, null=True)
     empleado = models.ForeignKey(Empleado, models.DO_NOTHING, blank=True, null=True)
 
+    def imagenes(self):
+        return Imagen.objects.filter(item=self)
+
     class Meta:
         app_label = 'furnipop_api'
         db_table = 'item'
@@ -125,18 +128,6 @@ class MetodoPago(models.Model):
         app_label = 'furnipop_api'
         db_table = 'metodo_pago'
 
-class Pedido(models.Model):
-    fecha = models.CharField(max_length=45)
-    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
-    estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING)
-    direccion = models.ForeignKey(Direccion, models.DO_NOTHING, blank=True, null=True)
-    camion = models.ForeignKey(Camion, models.DO_NOTHING, blank=True, null=True)
-    metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
-
-    class Meta:
-        app_label = 'furnipop_api'
-        db_table = 'pedido'
-
 class Paypal(models.Model):
     email = models.EmailField(unique=True, max_length=45)
     metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
@@ -163,6 +154,20 @@ class Lote(models.Model):
     class Meta:
         app_label = 'furnipop_api'
         db_table = 'lote'
+
+class Pedido(models.Model):
+    fecha = models.CharField(max_length=45)
+    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
+    estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING)
+    direccion = models.ForeignKey(Direccion, models.DO_NOTHING, blank=True, null=True)
+    camion = models.ForeignKey(Camion, models.DO_NOTHING, blank=True, null=True)
+    metodo_pago = models.ForeignKey(MetodoPago, models.DO_NOTHING)
+    lotes = models.ManyToManyField(Lote, through='LotesPedidos')
+    items = models.ManyToManyField(Item, through='ItemsPedidos')
+
+    class Meta:
+        app_label = 'furnipop_api'
+        db_table = 'pedido'
 
 class ItemsLotes(models.Model):
     lote = models.ForeignKey(Lote, on_delete=models.DO_NOTHING)
