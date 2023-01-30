@@ -3,16 +3,17 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from furnipop_api.models import Item, Lote, ItemsLotes, Pedido, Contenedor, ItemsPedidos
-from serializer_interface.item_serializer import ItemSerializer
+from serializer_interface.item_serializer import ItemSerializer, ItemImagenSerializer
 
 @api_view(['GET','POST'])
 def getOrPostItem(request):
     serializer = None
     resStatus = None
+    host = request.get_host()
     if(request.method =='GET'):
         q1 = Item.objects.all()
         
-        serializer = ItemSerializer(q1, many=True)
+        serializer = ItemImagenSerializer(q1, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     if request.method=='POST':
 
@@ -30,6 +31,7 @@ def getOrPostItem(request):
 def getPutDeleteItem(request):
     serializer = None
     resStatus = None
+    host = request.get_host()
     pk = request.query_params['pk']
     try:
         item = Item.objects.get(pk=pk)
@@ -38,7 +40,7 @@ def getPutDeleteItem(request):
             return Response(status=resStatus)
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = ItemSerializer(item)
+        serializer = ItemImagenSerializer(item, context={'host':host})
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT

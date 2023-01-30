@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from furnipop_api.models import Lote
+from furnipop_api.models import Lote, Pedido, Item
 from serializer_interface.lote_serializer import LoteSerializer
 
 @api_view(['GET','POST'])
