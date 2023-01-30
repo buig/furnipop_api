@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from furnipop_api.models import Item, Lote, ItemsLotes, Pedido, Contenedor, ItemsPedidos
+from furnipop_api.models import Item, Lote, ItemsLotes, Pedido, Contenedor, ItemsPedidos, Cliente
 from serializer_interface.item_serializer import ItemSerializer, ItemImagenSerializer
 
 @api_view(['GET','POST'])
@@ -97,6 +97,51 @@ def getPutDeleteItemFromLote(request):
                 resStatus = status.HTTP_428_PRECONDITION_REQUIRED
                 return Response(status=resStatus)
     except Lote.DoesNotExist or Item.DoesNotExist:
+        resStatus = status.HTTP_404_NOT_FOUND
+        return Response(status=resStatus)
+
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET'])
+def getItemsByCliente(request):
+    serializer = None
+    resStatus = None
+    pk = request.query_params['pk']
+    try:
+        get_cliente = Cliente.objects.get(pk=pk)
+        items = get_cliente.favoritos.all() # La variable se llama items, porque son items, pero el atributo del model Cliente se llama favoritos.
+        serializer = ItemSerializer(items, many=True)
+        resStatus = status.HTTP_200_OK
+    except Cliente.DoesNotExist:
+            resStatus = status.HTTP_404_NOT_FOUND
+            return Response(status=resStatus)
+    return Response(serializer.data, status=resStatus)
+
+@api_view(['GET','PUT','DELETE'])
+def getPutDeleteItemFromCliente(request):
+    serializer = None
+    resStatus = None
+    cliente_pk = request.query_params['cliente_pk']
+    item_pk = request.query_params['item_pk']
+    try:
+        cliente = Cliente.objects.get(pk=cliente_pk)
+        item = Item.objects.get(pk=item_pk)
+        if request.method == 'GET' or request.method == 'DELETE':
+            if cliente.favoritos.contains(item):
+                resStatus = status.HTTP_200_OK
+                serializer = ItemSerializer(item)
+                if request.method == 'DELETE':
+                    cliente.favoritos.remove(item)
+            else:
+                raise Item.DoesNotExist
+        if request.method == 'PUT':
+            if not cliente.favoritos.contains(item):
+                serializer = ItemSerializer(item)
+                cliente.favoritos.add(item)
+            else:
+                resStatus = status.HTTP_428_PRECONDITION_REQUIRED
+                return Response(status=resStatus)
+    except Cliente.DoesNotExist or Item.DoesNotExist:
         resStatus = status.HTTP_404_NOT_FOUND
         return Response(status=resStatus)
 

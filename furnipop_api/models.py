@@ -90,6 +90,7 @@ class Cliente(models.Model):
     fecha_nacimiento = models.DateField()
     email = models.EmailField(unique=True, max_length=100)
     password = models.CharField(max_length=100)
+    favoritos = models.ManyToManyField(Item)
 
     class Meta:
         app_label = 'furnipop_api'
