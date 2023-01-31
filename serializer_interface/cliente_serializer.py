@@ -10,4 +10,4 @@ class ClienteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cliente
-        fields = '__all__'
+        fields = ['id','nombre','apellidos','dni','fecha_nacimiento','email','password']
