@@ -180,9 +180,10 @@ class ItemsLotes(models.Model):
         db_table = 'items_lotes'
 
 class ItemsPedidos(models.Model):
-    pedido = models.OneToOneField(Pedido, models.DO_NOTHING, primary_key=True)
+    pedido = models.ForeignKey(Pedido, models.DO_NOTHING)
     item = models.ForeignKey(Item, models.DO_NOTHING)
     cantidad = models.IntegerField()
+
 
     class Meta:
         app_label = 'furnipop_api'
@@ -190,7 +191,7 @@ class ItemsPedidos(models.Model):
         unique_together = (('pedido', 'item'),)
 
 class LotesPedidos(models.Model):
-    lote = models.OneToOneField(Lote, models.DO_NOTHING, primary_key=True)
+    lote = models.ForeignKey(Lote, models.DO_NOTHING)
     pedido = models.ForeignKey(Pedido, models.DO_NOTHING)
 
     class Meta:
