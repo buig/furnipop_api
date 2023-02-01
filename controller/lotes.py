@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 
-from furnipop_api.models import Lote, Pedido, Item
+from furnipop_api.models import Lote, Pedido, Item, LotesPedidos
 from serializer_interface.lote_serializer import LoteSerializer
 
 @api_view(['GET','POST'])
@@ -89,8 +89,7 @@ def getPutDeleteLoteFromPedido(request):
         if request.method == 'PUT':
             if not pedido.lotes.contains(lote):
                 serializer = LoteSerializer(lote)
-                cant = request.data.get('cantidad',1)
-                LotesPedidos.objects.create(lote = lote, pedido = pedido, cantidad = cant)
+                LotesPedidos.objects.create(lote = lote, pedido = pedido)
             else:
                 resStatus = status.HTTP_428_PRECONDITION_REQUIRED
                 return Response(status=resStatus)
