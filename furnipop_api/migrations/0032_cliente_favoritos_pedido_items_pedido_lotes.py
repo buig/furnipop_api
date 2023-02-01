@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('furnipop_api', '0009_alter_imagen_item'),
+        ('furnipop_api', '0031_alter_itemspedidos_pedido_alter_lotespedidos_lote'),
     ]
 
     operations = [
