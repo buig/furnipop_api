@@ -92,7 +92,7 @@ Updates a camion from the database. Returns this camion.\
 - pk : ID of a camion.
 
 **Required body form-data:**
-- nombre : Self-descriptive.
+- matricula : Self-descriptive.
 > apicei14.ieslasenia.org/camion
 
 ### [DELETE] Camion
