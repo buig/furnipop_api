@@ -861,7 +861,7 @@ ___
 Returns every lote from a pedido lote in the database.
 **Required params:**
 - pk : ID of a pedido.
-> apicei14.ieslasenia.org/pedido/Lote
+> apicei14.ieslasenia.org/pedido/lotes
 
 ### [GET] lote from pedido
 Returns an lote from a pedido in the database.\
