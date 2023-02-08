@@ -61,10 +61,11 @@ def getItemsByLote(request):
     serializer = None
     resStatus = None
     pk = request.query_params['pk']
+    host = request.get_host()
     try:
         get_lote = Lote.objects.get(pk=pk)
         items = get_lote.items.all()
-        serializer = ItemSerializer(items, many=True)
+        serializer = ItemImagenSerializer(items, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     except Lote.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
@@ -77,13 +78,14 @@ def getPutDeleteItemFromLote(request):
     resStatus = None
     lote_pk = request.query_params['lote_pk']
     item_pk = request.query_params['item_pk']
+    host = request.get_host()
     try:
         lote = Lote.objects.get(pk=lote_pk)
         item = Item.objects.get(pk=item_pk)
         if request.method == 'GET' or request.method == 'DELETE':
             if lote.items.contains(item):
                 resStatus = status.HTTP_200_OK
-                serializer = ItemSerializer(item)
+                serializer = ItemImagenSerializer(item, context={'host':host})
                 if request.method == 'DELETE':
                     lote.items.remove(item)
             else:
@@ -124,13 +126,14 @@ def getPutDeleteItemFromCliente(request):
     resStatus = None
     cliente_pk = request.query_params['cliente_pk']
     item_pk = request.query_params['item_pk']
+    host = request.get_host()
     try:
         cliente = Cliente.objects.get(pk=cliente_pk)
         item = Item.objects.get(pk=item_pk)
         if request.method == 'GET' or request.method == 'DELETE':
             if cliente.favoritos.contains(item):
                 resStatus = status.HTTP_200_OK
-                serializer = ItemSerializer(item)
+                serializer = ItemImagenSerializer(item, context={'host':host})
                 if request.method == 'DELETE':
                     cliente.favoritos.remove(item)
             else:
@@ -153,10 +156,11 @@ def getItemsByPedido(request):
     serializer = None
     resStatus = None
     pk = request.query_params['pk']
+    host = request.get_host()
     try:
         get_pedido = Pedido.objects.get(pk=pk)
         items = get_pedido.items.all()
-        serializer = ItemSerializer(items, many=True)
+        serializer = ItemImagenSerializer(items, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     except Pedido.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
@@ -169,13 +173,14 @@ def getPutDeleteItemFromPedido(request):
     resStatus = None
     pedido_pk = request.query_params['pedido_pk']
     item_pk = request.query_params['item_pk']
+    host = request.get_host()
     try:
         pedido = Pedido.objects.get(pk=pedido_pk)
         item = Item.objects.get(pk=item_pk)
         if request.method == 'GET' or request.method == 'DELETE':
             if pedido.items.contains(item):
                 resStatus = status.HTTP_200_OK
-                serializer = ItemSerializer(item)
+                serializer = ItemImagenSerializer(item, context={'host':host})
                 if request.method == 'DELETE':
                     pedido.items.remove(item)
             else:
