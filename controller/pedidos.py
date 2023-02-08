@@ -3,16 +3,17 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from furnipop_api.models import Pedido
-from serializer_interface.pedido_serializer import PedidoSerializer
+from serializer_interface.pedido_serializer import PedidoSerializer, PedidoLotesImagenSerializer
 
 @api_view(['GET','POST'])
 def getOrPostPedido(request):
     serializer = None
     resStatus = None
+    host = request.get_host()
     if(request.method =='GET'):
         q1 = Pedido.objects.all()
         
-        serializer = PedidoSerializer(q1, many=True)
+        serializer = PedidoLotesImagenSerializer(q1, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     if request.method=='POST':
 
@@ -31,6 +32,7 @@ def getPutDeletePedido(request):
     serializer = None
     resStatus = None
     pk = request.query_params['pk']
+    host = request.get_host()
     try:
         lote = Pedido.objects.get(pk=pk)
     except Pedido.DoesNotExist:
@@ -38,7 +40,7 @@ def getPutDeletePedido(request):
             return Response(status=resStatus)
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = PedidoSerializer(lote)
+        serializer = PedidoLotesImagenSerializer(lote, context={'host':host})
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT

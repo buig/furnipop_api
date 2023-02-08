@@ -32,6 +32,7 @@ def getPutDeletePaypal(request):
             resStatus = status.HTTP_404_NOT_FOUND
             return Response(status=resStatus)
     
+    
     if request.method == 'GET' or request.method == 'DELETE':
         serializer = PaypalSerializer(cliente)
         resStatus = status.HTTP_200_OK
