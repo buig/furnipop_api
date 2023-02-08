@@ -107,10 +107,11 @@ def getItemsByCliente(request):
     serializer = None
     resStatus = None
     pk = request.query_params['pk']
+    host = request.get_host()
     try:
         get_cliente = Cliente.objects.get(pk=pk)
         items = get_cliente.favoritos.all() # La variable se llama items, porque son items, pero el atributo del model Cliente se llama favoritos.
-        serializer = ItemImagenSerializer(items, many=True)
+        serializer = ItemImagenSerializer(items, many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     except Cliente.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
