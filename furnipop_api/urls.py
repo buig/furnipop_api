@@ -73,6 +73,7 @@ urlpatterns = [
     path('pedido/lote',lotes.getPutDeleteLoteFromPedido,name='lote in pedido' ),
     path('clientes',clientes.getOrPostCliente,name='clientes'),
     path('cliente',clientes.getPutDeleteCliente,name='cliente'),
+    path('cliente/pedidos', pedidos.getPedidosByCliente, name="pedidos by cliente"),
     path('cliente-favoritos',items.getItemsByCliente, name="cliente favoritos"),
     path('cliente-favorito',items.getPutDeleteItemFromCliente, name='cliente favorito'),
     path('direcciones',direcciones.getOrPostdireccion,name='direcciones'),
