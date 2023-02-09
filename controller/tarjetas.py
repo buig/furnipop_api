@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from furnipop_api.models import Tarjeta
-from serializer_interface.tarjeta_serializer import TarjetaSerializer
+from serializer_interface.tarjeta_serializer import TarjetaSerializer, TarjetaMetodoPagoSerializer
 
 @api_view(['POST'])
 def getTarjeta(request):
@@ -33,7 +33,7 @@ def getPutDeleteTarjeta(request):
             return Response(status=resStatus)
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = TarjetaSerializer(cliente)
+        serializer = TarjetaMetodoPagoSerializer(cliente)
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT

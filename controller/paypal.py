@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 
 from furnipop_api.models import Paypal
-from serializer_interface.paypal_serializer import PaypalSerializer
+from serializer_interface.paypal_serializer import PaypalSerializer, PaypalMetodoPagoSerializer
 
 @api_view(['POST'])
 def getPaypal(request):
@@ -34,7 +34,7 @@ def getPutDeletePaypal(request):
     
     
     if request.method == 'GET' or request.method == 'DELETE':
-        serializer = PaypalSerializer(cliente)
+        serializer = PaypalMetodoPagoSerializer(cliente)
         resStatus = status.HTTP_200_OK
         if request.method == 'DELETE':
             resStatus = status.HTTP_204_NO_CONTENT
