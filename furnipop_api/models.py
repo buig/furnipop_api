@@ -8,10 +8,12 @@
 from django.db import models
 from pathlib import Path
 from typing import Any, Tuple, Dict
+from django.utils import timezone
+from datetime import date
 
 class Contenedor(models.Model):
     referencia = models.CharField(max_length=45)
-    fecha_alta = models.DateTimeField()
+    fecha_alta = models.DateTimeField(default= timezone.now())
     ubicacion = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -66,7 +68,7 @@ class Item(models.Model):
     descripcion = models.CharField(max_length=45, blank=True, null=True)
     alto = models.IntegerField()
     ancho = models.IntegerField()
-    fecha_alta = models.DateField()
+    fecha_alta = models.DateField(default= date.today())
     preferencias = models.CharField(max_length=45, blank=True, null=True)
     cantidad = models.IntegerField()
     precio = models.FloatField()
