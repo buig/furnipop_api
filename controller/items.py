@@ -204,10 +204,11 @@ def getItemsByContenedor(request):
     serializer = None
     resStatus = None
     pk = request.query_params['pk']
+    host = request.get_host()
     try:
         get_contenedor = Contenedor.objects.get(pk=pk)
         items = Item.objects.filter(contenedor=get_contenedor)
-        serializer = ItemSerializer(items, many=True)
+        serializer = ItemImagenSerializer(items,many=True, context={'host':host})
         resStatus = status.HTTP_200_OK
     except Pedido.DoesNotExist:
             resStatus = status.HTTP_404_NOT_FOUND
