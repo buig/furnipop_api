@@ -27,10 +27,10 @@ def getOrPostLote(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteLote(request):
+def getPutDeleteLote(request, pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         lote = Lote.objects.get(pk=pk)
     except Lote.DoesNotExist:
@@ -55,10 +55,10 @@ def getPutDeleteLote(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getLotesByPedido(request):
+def getLotesByPedido(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         get_pedido = Pedido.objects.get(pk=pk)
         lotes = get_pedido.lotes.all()
@@ -70,11 +70,11 @@ def getLotesByPedido(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET','PUT','DELETE'])
-def getPutDeleteLoteFromPedido(request):
+def getPutDeleteLoteFromPedido(request,pedido_pk,lote_pk):
     serializer = None
     resStatus = None
-    pedido_pk = request.query_params['pedido_pk']
-    lote_pk = request.query_params['lote_pk']
+    #pedido_pk = request.query_params['pedido_pk']
+    #lote_pk = request.query_params['lote_pk']
     try:
         pedido = Pedido.objects.get(pk=pedido_pk)
         lote = Lote.objects.get(pk=lote_pk)

@@ -47,10 +47,10 @@ def getOrPostEmpleado(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteEmpleado(request):
+def getPutDeleteEmpleado(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         empleado = Empleado.objects.get(pk=pk)
     except Empleado.DoesNotExist:
@@ -75,10 +75,10 @@ def getPutDeleteEmpleado(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getEmpleadosFromDepartamento(request):
+def getEmpleadosFromDepartamento(request, pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         dept = Departamento.objects.get(pk=pk)
         q1 = Empleado.objects.filter(departamento = dept)
@@ -91,11 +91,11 @@ def getEmpleadosFromDepartamento(request):
     return Response(serializer.data, status = resStatus)
 
 @api_view(['PUT'])
-def putEmpleadoInDepartamento(request):
+def putEmpleadoInDepartamento(request, departamento_pk, empleado_pk):
     serializer = None
     resStatus = None
-    empleado_pk = request.query_params['empleado_pk']
-    departamento_pk = request.query_params['departamento_pk']
+    #empleado_pk = request.query_params['empleado_pk']
+    #departamento_pk = request.query_params['departamento_pk']
     try:
         dept = Departamento.objects.get(pk=departamento_pk)
         emp = Empleado.objects.get(pk=empleado_pk)

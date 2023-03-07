@@ -28,11 +28,11 @@ def getOrPostItem(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteItem(request):
+def getPutDeleteItem(request,pk):
     serializer = None
     resStatus = None
     host = request.get_host()
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         item = Item.objects.get(pk=pk)
     except Item.DoesNotExist:
@@ -57,10 +57,10 @@ def getPutDeleteItem(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getItemsByLote(request):
+def getItemsByLote(request, pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         get_lote = Lote.objects.get(pk=pk)
@@ -73,11 +73,11 @@ def getItemsByLote(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET','PUT','DELETE'])
-def getPutDeleteItemFromLote(request):
+def getPutDeleteItemFromLote(request, lote_pk, item_pk):
     serializer = None
     resStatus = None
-    lote_pk = request.query_params['lote_pk']
-    item_pk = request.query_params['item_pk']
+    #lote_pk = request.query_params['lote_pk']
+    #item_pk = request.query_params['item_pk']
     host = request.get_host()
     try:
         lote = Lote.objects.get(pk=lote_pk)
@@ -105,10 +105,10 @@ def getPutDeleteItemFromLote(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getItemsByCliente(request):
+def getItemsByCliente(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         get_cliente = Cliente.objects.get(pk=pk)
@@ -121,11 +121,11 @@ def getItemsByCliente(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET','PUT','DELETE'])
-def getPutDeleteItemFromCliente(request):
+def getPutDeleteItemFromCliente(request,cliente_pk,item_pk):
     serializer = None
     resStatus = None
-    cliente_pk = request.query_params['cliente_pk']
-    item_pk = request.query_params['item_pk']
+    #cliente_pk = request.query_params['cliente_pk']
+    #item_pk = request.query_params['item_pk']
     host = request.get_host()
     try:
         cliente = Cliente.objects.get(pk=cliente_pk)
@@ -152,10 +152,10 @@ def getPutDeleteItemFromCliente(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getItemsByPedido(request):
+def getItemsByPedido(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         get_pedido = Pedido.objects.get(pk=pk)
@@ -168,11 +168,11 @@ def getItemsByPedido(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET','PUT','DELETE'])
-def getPutDeleteItemFromPedido(request):
+def getPutDeleteItemFromPedido(request,pedido_pk,item_pk):
     serializer = None
     resStatus = None
-    pedido_pk = request.query_params['pedido_pk']
-    item_pk = request.query_params['item_pk']
+    #pedido_pk = request.query_params['pedido_pk']
+    #item_pk = request.query_params['item_pk']
     host = request.get_host()
     try:
         pedido = Pedido.objects.get(pk=pedido_pk)
@@ -200,10 +200,10 @@ def getPutDeleteItemFromPedido(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getItemsByContenedor(request):
+def getItemsByContenedor(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         get_contenedor = Contenedor.objects.get(pk=pk)
