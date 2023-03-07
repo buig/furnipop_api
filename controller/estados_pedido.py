@@ -27,10 +27,10 @@ def getOrPostEstadoPedido(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteEstadoPedido(request):
+def getPutDeleteEstadoPedido(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         cliente = EstadoPedido.objects.get(pk=pk)
     except EstadoPedido.DoesNotExist:

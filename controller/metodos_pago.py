@@ -27,10 +27,10 @@ def getOrPostMetodosPago(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteMetodoPago(request):
+def getPutDeleteMetodoPago(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         cliente = MetodoPago.objects.get(pk=pk)
     except MetodoPago.DoesNotExist:

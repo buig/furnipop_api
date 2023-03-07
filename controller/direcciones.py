@@ -27,10 +27,10 @@ def getOrPostdireccion(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteDireccion(request):
+def getPutDeleteDireccion(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         cliente = Direccion.objects.get(pk=pk)
     except Direccion.DoesNotExist:

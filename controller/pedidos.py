@@ -28,10 +28,10 @@ def getOrPostPedido(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeletePedido(request):
+def getPutDeletePedido(request, pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         lote = Pedido.objects.get(pk=pk)
@@ -57,10 +57,10 @@ def getPutDeletePedido(request):
     return Response(serializer.data, status=resStatus)
 
 @api_view(['GET'])
-def getPedidosByCliente(request):
+def getPedidosByCliente(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     host = request.get_host()
     try:
         get_cliente = Cliente.objects.get(pk=pk)
