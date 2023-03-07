@@ -27,10 +27,10 @@ def getOrPostMaterial(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteMaterial(request):
+def getPutDeleteMaterial(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         material = Material.objects.get(pk=pk)
     except Material.DoesNotExist:

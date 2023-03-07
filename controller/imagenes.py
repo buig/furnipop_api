@@ -33,11 +33,11 @@ def getOrPostImagen(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'DELETE'])
-def getPutDeleteImagen(request):
+def getPutDeleteImagen(request,pk):
     serializer = None
     resStatus = None
     host = request.get_host()
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         imagen = Imagen.objects.get(pk=pk)
     except Imagen.DoesNotExist:

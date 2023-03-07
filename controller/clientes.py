@@ -46,10 +46,10 @@ def getOrPostCliente(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteCliente(request):
+def getPutDeleteCliente(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         cliente = Cliente.objects.get(pk=pk)
     except Cliente.DoesNotExist:

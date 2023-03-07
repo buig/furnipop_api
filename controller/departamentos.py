@@ -27,10 +27,10 @@ def getOrPostDepartamento(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteDepartamento(request):
+def getPutDeleteDepartamento(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         departamento = Departamento.objects.get(pk=pk)
     except Departamento.DoesNotExist:

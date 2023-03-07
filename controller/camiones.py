@@ -27,10 +27,10 @@ def getOrPostCamion(request):
     return Response(serializer.data, status= resStatus)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def getPutDeleteCamion(request):
+def getPutDeleteCamion(request,pk):
     serializer = None
     resStatus = None
-    pk = request.query_params['pk']
+    #pk = request.query_params['pk']
     try:
         cliente = Camion.objects.get(pk=pk)
     except Camion.DoesNotExist:
