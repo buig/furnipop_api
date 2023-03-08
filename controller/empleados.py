@@ -1,12 +1,13 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from furnipop_api.models import Empleado, Departamento
 from serializer_interface.empleado_serializer import EmpleadoSerializer
 from serializer_interface.empleado_dept_serializer import EmpleadoDeptSerializer
 
 @api_view(['POST'])
+@permission_classes((AllowAny,))
 def validateEmpleado(request):
     serializer = None
     resStatus = None

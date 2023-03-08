@@ -1,11 +1,12 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from furnipop_api.models import Cliente
 from serializer_interface.cliente_serializer import ClienteSerializer
 
 @api_view(['POST'])
+@permission_classes((AllowAny,))
 def validateCliente(request):
     serializer = None
     resStatus = None
